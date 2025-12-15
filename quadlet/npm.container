@@ -1,0 +1,17 @@
+[Container]
+ContainerName=npm
+Image=docker.io/jc21/nginx-proxy-manager:latest
+
+# Ports
+PublishPort=80:80
+PublishPort=81:81
+PublishPort=443:443
+
+# Volumes (bind mount)
+Volume=/opt/npm/data:/data:Z
+Volume=/opt/npm/letsencrypt:/etc/letsencrypt:Z
+
+LogDriver=journald
+
+[Install]
+WantedBy=multi-user.target
