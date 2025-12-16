@@ -8,8 +8,8 @@ PublishPort=81:81
 PublishPort=443:443
 
 # Volumes (bind mount)
-Volume=/opt/npm/data:/data:Z
-Volume=/opt/npm/letsencrypt:/etc/letsencrypt:Z
+Volume=/opt/NginxProxyManager/data:/data:Z
+Volume=/opt/NginxProxyManager/letsencrypt:/etc/letsencrypt:Z
 
 LogDriver=journald
 
