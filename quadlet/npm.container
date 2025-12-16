@@ -9,8 +9,8 @@ PublishPort=443:443
 
 # Volumes (bind mount)
 
--v npm_letsencrypt:/etc/letsencrypt
--v npm_data:/data
+Volume=npm_letsencrypt:/etc/letsencrypt
+Volume=npm_data:/data
 
 
 LogDriver=journald
