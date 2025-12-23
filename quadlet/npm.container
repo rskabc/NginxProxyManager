@@ -1,3 +1,7 @@
+[Unit]
+Description=Nginx Proxy Manager Container
+After=network-online.target
+
 [Container]
 ContainerName=npm
 Image=docker.io/jc21/nginx-proxy-manager:latest
@@ -7,13 +11,18 @@ PublishPort=80:80
 PublishPort=81:81
 PublishPort=443:443
 
-# Volumes (bind mount)
+# Volumes dengan label SELinux (:Z)
+Volume=npm_letsencrypt:/etc/letsencrypt:Z
+Volume=npm_data:/data:Z
 
-Volume=npm_letsencrypt:/etc/letsencrypt
-Volume=npm_data:/data
-
+# Tambahkan Healthcheck untuk memastikan service benar-benar siap
+HealthCmd=curl -f http://localhost:81 || exit 1
 
 LogDriver=journald
+
+[Service]
+# Otomatis restart jika crash
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
