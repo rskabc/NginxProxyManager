@@ -15,14 +15,21 @@ PublishPort=443:443
 Volume=npm_letsencrypt:/etc/letsencrypt:Z
 Volume=npm_data:/data:Z
 
-# Tambahkan Healthcheck untuk memastikan service benar-benar siap
-HealthCmd=curl -f http://localhost:81 || exit 1
+# --- PENYEMPURNAAN HEALTHCHECK ---
+# Gunakan port 81 (dashboard admin) untuk cek karena itu yang paling cepat merespon
+HealthCmd=curl -f -s http://localhost:81 || exit 1
+HealthInterval=30s
+HealthRetries=3
+# NPM butuh waktu untuk startup database internalnya
+HealthStartPeriod=20s
 
 LogDriver=journald
 
 [Service]
 # Otomatis restart jika crash
 Restart=always
+# Berikan waktu jeda sebelum restart agar tidak loop cepat jika DB bermasalah
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
