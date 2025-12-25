@@ -30,6 +30,7 @@ LogDriver=journald
 Restart=always
 # Berikan waktu jeda sebelum restart agar tidak loop cepat jika DB bermasalah
 RestartSec=5s
+ExecStartPre=/usr/bin/rm -f %t/%n.ctr-id
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=multi-user.target default.target
